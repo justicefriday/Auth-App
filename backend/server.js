@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'; // <-- import cors
 import userRoutes from './routes/userRoutes.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import dotenv from 'dotenv';
@@ -7,7 +8,6 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Load env
 dotenv.config();
 connectDB();
 
@@ -23,17 +23,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(cors())
+
 // API routes
 app.use('/api/users', userRoutes);
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
-  const frontendPath = path.join(__dirname, '../frontend/dist');
-  app.use(express.static(frontendPath));
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-  // Serve index.html for all non-API routes
-  app.get(/^(?!\/api).*/, (req, res) => {
-    res.sendFile(path.join(frontendPath, 'index.html'));
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
   });
 } else {
   app.get('/', (req, res) => res.send('Server is running...'));
