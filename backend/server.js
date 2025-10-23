@@ -23,7 +23,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(cors())
+app.use(cors({
+  origin: 'https://auth-app-three-rho.vercel.app/', // vercel url which is the frontend url
+  credentials: true
+}));
 
 // API routes
 app.use('/api/users', userRoutes);
