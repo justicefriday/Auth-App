@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(cors({
-  origin: 'https://auth-app-three-rho.vercel.app/', // vercel url which is the frontend url
+  origin: 'https://auth-app-1-we0q.onrender.com', // vercel url which is the frontend url
   credentials: true
 }));
 
