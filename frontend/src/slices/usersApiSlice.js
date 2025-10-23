@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 
                     //it is api/users because all our backend start with api/users ::: the 
-const USERS_URL = `process.env.REACT_APP_API_URL/api/users`;
+const USERS_URL = `${process.env.REACT_APP_API_URL}/api/users`;
 
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
